@@ -2,7 +2,6 @@ import React from "react";
 import './Card.css';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
 
 function Card() {
   const [bike, setBikes] = useState([]);
