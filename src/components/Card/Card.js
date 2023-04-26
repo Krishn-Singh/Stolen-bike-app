@@ -1,5 +1,5 @@
 import React from "react";
-import './Card.css';
+import "./Card.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -16,7 +16,6 @@ function Card() {
   const onSubmit = (e) => {
     e.preventDefault();
   };
-
 
   useEffect(() => {
     async function getComments() {
@@ -65,25 +64,32 @@ function Card() {
     return <div>No data</div>;
   } else {
     return (
-      <>
-        <form
-          action="/"
-          method="get"
-          className="search-main"
-          autoComplete="off"
-          onSubmit={onSubmit}
-        >
-          <label htmlFor="header-search"></label>
-          <input
-            type="text"
-            id="header-search"
-            placeholder="search..."
-            className="search-text"
-            value={searchTerm}
-            name="s"
-            onChange={(e) => setsearchTerm(e.target.value)}
-          />
+      <div className="container">
+        <div className="row">
+          <div className="col-12 mb-4">
+        <form>
+          <label
+            htmlFor="header-search"
+            action="/"
+            method="get"
+            className="search-main"
+            autoComplete="off"
+            onSubmit={onSubmit}
+          ></label>
+
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search"
+              id="header-search"
+              value={searchTerm}
+              name="s"
+              onChange={(e) => setsearchTerm(e.target.value)}
+            />
+          
         </form>
+        </div>
+        <div className="col-12">
         {bike
           .filter((val) => {
             if (searchTerm == "") {
@@ -95,15 +101,13 @@ function Card() {
             }
           })
           .map((data) => (
-            <div className="Card--">
-              <div key={data.id} className="card--section">
-                <img src={data.large_img}
-                  className="image--bike"
-                  alt="NO IMAGE AVAILABLE"
-                />
-                <div className="bike---info">
-                  <span id="bike-status">{data.status}</span>
-                  <span>{data.title}</span>
+            <div className="card mb-2" key={data.id}>
+              <div  className="card--section" >   
+                <div className="row card-body">
+                <img src={data.large_img} className="col-sm-4" alt="image not uploaded" style={{height: "250px", objectFit: "contain"}}/>
+                <div class="col-sm-8">
+                  <span className={`badge ${data.status === 'found'?'bg-success':'bg-danger'}`}>{data.status}</span>
+                  <h5 className="card-title">{data.title}</h5>
                   <span>{data.year}</span>
                   <div className="bike--desc">
                     <p>{data.description}</p>
@@ -113,10 +117,12 @@ function Card() {
                     </p>
                   </div>
                 </div>
+                </div>
               </div>
             </div>
-            
-          ))}
+            ))}
+            </div>
+            </div>
         {/* <div className="pagi--">
           <ReactPaginate className="pagi--con"
             previousLabel="<<"
@@ -126,7 +132,7 @@ function Card() {
             onPageChange={handlePageClick}
           />
         </div> */}
-      </>
+      </div>
     );
   }
 }
